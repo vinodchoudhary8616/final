@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <div class="my-6 mx-10">
+        <span class="text-4xl my-4 font-medium">Welcome to  <%= userName %></span>
+        <div>
+            <% if (messages.success) { %>
+                <p class="bg-blue-100 m-3 list-none rounded-md px-4 py-2"><%= messages.success %></p>
+            <% } %>
+        </div>
+        <div>
+            <% if (messages && messages.error && messages.error.length > 0) { %>
+                <% for(var i=0; i<messages.error.length; i++) { %>
+                    <p class="bg-blue-100 my-3 list-none rounded-md px-4 py-2"><%= messages.error[i] %></p>
+                <% } %>
+            <% } %>
+        </div>
+        <table class="border-style: solid; border-width: 4px;"><tr><td>
+        <div class="flex gap-2 py-4 justify-between">
+            <h5 class="text-2xl">Elections Option</h5>
+            <div class="bg-blue-800 rounded w-fit px-2 py-1 hover:bg-blue-600">
+                <a href="/elections/create" class="text-white"> Create a new election</a>
+            </div>
+        </div></td></tr><tr><td>
+        <div class="flex-auto">
+            <div class="mx-4">  
+                <p class="text-blue-600"><%= (elections.length==0)?"If you have not particpate this voting Application  yet!":"" %></p>
+                <ol class="list-decimal">
+                    <% for (let i=0; i<elections.length; i++) { %>
+                        <li>
+                            <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-blue-50">
+                                <a href="/elections/<%= elections[i].id %>" class="m-2 text-sm text-blue-600 "><%= elections[i].electionName %></a>
+                            </div>
+                        </li>
+                    <% } %>
+                </ol>
+            </div>
+        </td></tr>
+        </table>
+        </div>
+        <%- include('footer.ejs') %>
+    </div>
+</body>
+</html>
